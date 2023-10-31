@@ -5,7 +5,7 @@ export const getJobs = async (req: Request, res: Response) => {
   const page = Number(req.query.page) || 0;
   const size = Number(req.query.size) || 5;
   const jobs = await jobModel.findAll(page, size);
-  const total = Number((await jobModel.countAll())[0].count) || 0;
+  const total = Number((await jobModel.countAll())[0]?.count) || 0;
 
   res.json({
     data: jobs,

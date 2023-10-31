@@ -5,7 +5,9 @@
   "main": "index.ts",
   "scripts": {
     "start": "node -r ts-node/register/transpile-only -r tsconfig-paths/register ./src/index.ts",
+    "start:build": "npm run build && node -r ts-node/register/transpile-only -r tsconfig-paths/register ./build/index.js",
     "dev": "nodemon",
+    "build": "rimraf ./build && tsc",
     "migrate": "knex migrate:latest",
     "migrate:new": "knex migrate:make $NAME",
     "migrate:rollback": "knex migrate:rollback",
@@ -24,6 +26,7 @@
     "morgan": "^1.10.0",
     "nodemon": "^3.0.1",
     "openapi-typescript-codegen": "^0.25.0",
+    "rimraf": "^5.0.5",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.2.2"
   },
