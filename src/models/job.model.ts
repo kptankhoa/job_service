@@ -11,33 +11,34 @@ interface Job {
   updatedAt: Date;
 }
 
-const jobDb = db<Job>(TABLE_NAME.JOB)
+const getDb = () => db<Job>(TABLE_NAME.JOB)
   .withSchema(DB_CONFIG.DB_SCHEMA);
 
 export const findAll = async (page: number = 0, size: number = 5) => {
-  return jobDb
+  return getDb()
+    .select()
     .limit(size)
     .offset(page * size);
 };
 
 export const countAll = async () => {
-  return jobDb.count();
+  return getDb().count();
 };
 
 export const findById = async (id: number) => {
-  return jobDb
+  return getDb()
     .where({ id })
     .first();
 };
 
 export const create = async (body: any) => {
-  return jobDb
+  return getDb()
     .insert(body)
     .returning(['id', 'expiryDate']);
 };
 
 export const updateById = async (id: number, body: any) => {
-  return jobDb
+  return getDb()
     .where({ id })
     .update({
       ...body,
@@ -46,7 +47,8 @@ export const updateById = async (id: number, body: any) => {
 };
 
 export const deleteById = async (id: number) => {
-  return jobDb
+  return db<Job>(TABLE_NAME.JOB)
+    .withSchema(DB_CONFIG.DB_SCHEMA)
     .where({ id })
     .del();
 };

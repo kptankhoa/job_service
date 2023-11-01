@@ -18,6 +18,7 @@
     }
   },
   "exclude": [
-    "./knexfile.ts"
+    "./knexfile.ts",
+    "./src/migrations"
   ]
 }
