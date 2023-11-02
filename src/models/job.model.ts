@@ -17,7 +17,8 @@ const getDb = () => db<Job>(TABLE_NAME.JOB)
 export const findAll = async (page: number = 0, size: number = 5) => {
   return getDb()
     .limit(size)
-    .offset(page * size);
+    .offset(page * size)
+    .orderBy('updatedAt', 'desc');
 };
 
 export const countAll = async () => {
@@ -32,8 +33,7 @@ export const findById = async (id: number) => {
 
 export const create = async (body: any) => {
   return getDb()
-    .insert(body)
-    .returning(['id', 'expiryDate']);
+    .insert(body);
 };
 
 export const updateById = async (id: number, body: any) => {

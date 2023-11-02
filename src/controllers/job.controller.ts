@@ -37,12 +37,9 @@ export const getJobById = async (req: Request, res: Response, next: NextFunction
 export const createJob = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const body = req.body;
-    const newJob = await jobModel.create(body);
+    await jobModel.create(body);
 
-    res.status(StatusCodes.CREATED).json({
-      ...body,
-      ...newJob[0]
-    });
+    res.status(StatusCodes.CREATED).end();
   } catch (e) {
     next(e);
   }
